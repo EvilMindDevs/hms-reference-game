@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "875790264116",
+    "firebase_url": "https://fisngang.firebaseio.com",
+    "project_id": "fisngang",
+    "storage_bucket": "fisngang.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875790264116:android:30ee245d6af3235baca761",
+        "android_client_info": {
+          "package_name": "com.hms.referenceapp.hopsek"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "875790264116-60ku52vh065pnlqoqr0fujf02ts99q9b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hms.referenceapp.hopsek",
+            "certificate_hash": "680bc11c5e3bb1da7fc4b4224295259af1de1f16"
+          }
+        },
+        {
+          "client_id": "875790264116-r9cau3hjup7oi0vlh12chll9gaolaa4f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hms.referenceapp.hopsek",
+            "certificate_hash": "5e4db86fe5dcaa6c26bbb4a61693a161f99685d2"
+          }
+        },
+        {
+          "client_id": "875790264116-9plfbf75iol0k58lfejiup3h9dclh641.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAnuM452_aJGWms2IjTED1TSH1RH2Ce4A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "875790264116-9plfbf75iol0k58lfejiup3h9dclh641.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

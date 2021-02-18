@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources tools:keep="@string/firebase_database_url,@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_android_client_id,@string/default_web_client_id" xmlns:tools="http://schemas.android.com/tools">
+  <string name="firebase_database_url" translatable="false">https://fisngang.firebaseio.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">875790264116</string>
+  <string name="google_storage_bucket" translatable="false">fisngang.appspot.com</string>
+  <string name="project_id" translatable="false">fisngang</string>
+  <string name="google_api_key" translatable="false">AIzaSyCAnuM452_aJGWms2IjTED1TSH1RH2Ce4A</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCAnuM452_aJGWms2IjTED1TSH1RH2Ce4A</string>
+  <string name="google_app_id" translatable="false">1:875790264116:android:30ee245d6af3235baca761</string>
+  <string name="default_android_client_id" translatable="false">875790264116-60ku52vh065pnlqoqr0fujf02ts99q9b.apps.googleusercontent.com</string>
+  <string name="default_web_client_id" translatable="false">875790264116-9plfbf75iol0k58lfejiup3h9dclh641.apps.googleusercontent.com</string>
+</resources>
