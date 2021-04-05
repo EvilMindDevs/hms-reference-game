@@ -7,48 +7,27 @@ using HuaweiMobileServices.Id;
 using HuaweiMobileServices.Base;
 using HuaweiMobileServices.Utils;
 using System;
-
-#if HMS_BUILD
 using HmsPlugin;
 using UnityEngine.UI;
 
- 
 public class GameDemoManager : MonoBehaviour
 {
-
-    private bool achievements = true;
-    private bool leaderboards = true;
     private bool customUnit = false;
     private const string MAX_FILE_SIZE = "Max File Size: {0}";
     private const string MAX_IMAGE_SIZE = "Max Image Size: {0}";
 
-
-    IAchievementsClient achievementsClient;
-    IRankingsClient rankingsClient;
-
-    HMSGameManager gameManager;
-    LeaderboardManager leaderboardManager;
-    AchievementsManager achievementsManager;
-    SaveGameManager saveGameManager;
     private Text fileSize, imageSize;
     private InputField InputFieldDesc, InputFieldPlayedTime, InputFieldProgress;
     void Start()
     {
-        gameManager = HMSGameManager.GetInstance();
-
-        saveGameManager = SaveGameManager.GetInstance();
-
-        leaderboardManager = LeaderboardManager.GetInstance();
-
-        achievementsManager = AchievementsManager.GetInstance();
-        achievementsManager.OnShowAchievementsSuccess = OnShowAchievementsSuccess;
-        achievementsManager.OnShowAchievementsFailure = OnShowAchievementsFailure;
-        achievementsManager.OnRevealAchievementSuccess = OnRevealAchievementSuccess;
-        achievementsManager.OnRevealAchievementFailure = OnRevealAchievementFailure;
-        achievementsManager.OnIncreaseStepAchievementSuccess = OnIncreaseStepAchievementSuccess;
-        achievementsManager.OnIncreaseStepAchievementFailure = OnIncreaseStepAchievementFailure;
-        achievementsManager.OnUnlockAchievementSuccess = OnUnlockAchievementSuccess;
-        achievementsManager.OnUnlockAchievementFailure = OnUnlockAchievementFailure;
+        HMSAchievementsManager.Instance.OnShowAchievementsSuccess = OnShowAchievementsSuccess;
+        HMSAchievementsManager.Instance.OnShowAchievementsFailure = OnShowAchievementsFailure;
+        HMSAchievementsManager.Instance.OnRevealAchievementSuccess = OnRevealAchievementSuccess;
+        HMSAchievementsManager.Instance.OnRevealAchievementFailure = OnRevealAchievementFailure;
+        HMSAchievementsManager.Instance.OnIncreaseStepAchievementSuccess = OnIncreaseStepAchievementSuccess;
+        HMSAchievementsManager.Instance.OnIncreaseStepAchievementFailure = OnIncreaseStepAchievementFailure;
+        HMSAchievementsManager.Instance.OnUnlockAchievementSuccess = OnUnlockAchievementSuccess;
+        HMSAchievementsManager.Instance.OnUnlockAchievementFailure = OnUnlockAchievementFailure;
 
         fileSize = GameObject.Find("FileSize").GetComponent<Text>();
         imageSize = GameObject.Find("ImageSize").GetComponent<Text>();
@@ -56,12 +35,12 @@ public class GameDemoManager : MonoBehaviour
         InputFieldPlayedTime = GameObject.Find("PlayedTime").GetComponent<InputField>();
         InputFieldProgress = GameObject.Find("Progress").GetComponent<InputField>();
 
-
-
+        HMSAccountManager.Instance.SignIn();
     }
+
     public void GetMaxImageSize()
     {
-        ITask<int> detailSizeTask = saveGameManager.GetMaxImageSize(); ;
+        ITask<int> detailSizeTask = HMSSaveGameManager.Instance.GetMaxImageSize();
         detailSizeTask.AddOnSuccessListener((result) =>
         {
             Debug.Log("[HMSP:] GetMaxImageSize Success " + result);
@@ -71,9 +50,10 @@ public class GameDemoManager : MonoBehaviour
             Debug.Log("[HMSP:] GetMaxImageSize Failed");
         });
     }
+
     public void GetMaxFileSize()
     {
-        ITask<int> detailSizeTask = saveGameManager.GetMaxFileSize(); ;
+        ITask<int> detailSizeTask = HMSSaveGameManager.Instance.GetMaxFileSize();
         detailSizeTask.AddOnSuccessListener((result) =>
         {
             Debug.Log("[HMSP:] GetMaxFileSize Success " + result);
@@ -83,30 +63,30 @@ public class GameDemoManager : MonoBehaviour
             Debug.Log("[HMSP:] GetMaxFileSize Failed");
         });
     }
+
     public void CommitGame()
     {
         //Example Image Path: give statics path of image on phone
-        string ImagePath = Application.streamingAssetsPath; 
-        if( InputFieldDesc.text != null && InputFieldProgress.text != null && InputFieldPlayedTime.text != null)
+        string ImagePath = Application.streamingAssetsPath;
+        if (InputFieldDesc.text != null && InputFieldProgress.text != null && InputFieldPlayedTime.text != null)
         {
             string description = InputFieldDesc.text;
             long playedTime = long.Parse(InputFieldPlayedTime.text);
             long progress = long.Parse(InputFieldPlayedTime.text);
-            saveGameManager.Commit(description, playedTime, progress, ImagePath, "png");
-        }    
+            HMSSaveGameManager.Instance.Commit(description, playedTime, progress, ImagePath, "png");
+        }
         else
             Debug.Log("[HMSP:] Fill box");
     }
     public void ShowArchive()
     {
-        saveGameManager.ShowArchive();
+        HMSSaveGameManager.Instance.ShowArchive();
     }
 
-    // SHOW ACHIEVEMENTS
     public void ShowAchievements()
     {
 
-        achievementsManager.ShowAchievements();
+        HMSAchievementsManager.Instance.ShowAchievements();
     }
 
     private void OnShowAchievementsSuccess()
@@ -119,13 +99,11 @@ public class GameDemoManager : MonoBehaviour
         Debug.Log("HMS Games: ShowAchievements ERROR ");
     }
 
-    // GET ACHIEVEMENT LIST
-
     public void GetAchievementsList()
     {
-        achievementsManager.GetAchievementsList();
-        achievementsManager.OnGetAchievementsListSuccess = OnGetAchievemenListSuccess;
-        achievementsManager.OnGetAchievementsListFailure = OnGetAchievementListFailure;
+        HMSAchievementsManager.Instance.GetAchievementsList();
+        HMSAchievementsManager.Instance.OnGetAchievementsListSuccess = OnGetAchievemenListSuccess;
+        HMSAchievementsManager.Instance.OnGetAchievementsListFailure = OnGetAchievementListFailure;
 
     }
 
@@ -139,10 +117,9 @@ public class GameDemoManager : MonoBehaviour
         Debug.Log("HMS Games: GetAchievementsList ERROR ");
     }
 
-    // REVEAL ACHIEVEMENT
     public void RevealAchievement(string achievementId)
     {
-        achievementsManager.RevealAchievement(achievementId);
+        HMSAchievementsManager.Instance.RevealAchievement(achievementId);
     }
 
     public void OnRevealAchievementSuccess()
@@ -155,10 +132,9 @@ public class GameDemoManager : MonoBehaviour
         Debug.Log("HMS Games: RevealAchievement ERROR ");
     }
 
-    // INCREASE STEP ACHIEVEMENT
     public void IncreaseStepAchievement(string achievementId, int stepIncrement = 1)
     {
-        achievementsManager.IncreaseStepAchievement(achievementId, stepIncrement);
+        HMSAchievementsManager.Instance.IncreaseStepAchievement(achievementId, stepIncrement);
     }
 
     private void OnIncreaseStepAchievementSuccess()
@@ -171,10 +147,9 @@ public class GameDemoManager : MonoBehaviour
         Debug.Log("HMS Games: IncreaseStepAchievement ERROR ");
     }
 
-    // Set Step Achivement
     public void SetStepAchievement(string achievementId, int stepsNum)
     {
-        achievementsManager.SetStepAchievement(achievementId, stepsNum);
+        HMSAchievementsManager.Instance.SetStepAchievement(achievementId, stepsNum);
     }
 
     private void OnSetStepAchievementSuccess()
@@ -187,11 +162,9 @@ public class GameDemoManager : MonoBehaviour
         Debug.Log("HMS Games: SetStepAchievement ERROR ");
     }
 
-    // Unlock Achievement
-
     public void UnlockAchievement(string achievementId)
     {
-        achievementsManager.UnlockAchievement(achievementId);
+        HMSAchievementsManager.Instance.UnlockAchievement(achievementId);
     }
 
     private void OnUnlockAchievementSuccess()
@@ -210,11 +183,9 @@ public class GameDemoManager : MonoBehaviour
     // Get User Score Shown
     public void GetUserScoreShownOnLeaderboards()
     {
-
-        /// Todo Hay que cambiar en el manager isUser por el getUser
-        leaderboardManager.IsUserScoreShownOnLeaderboards();
-        leaderboardManager.OnIsUserScoreShownOnLeaderboardsSuccess = OnIsUserScoreShownOnLeaderboardsSuccess;
-        leaderboardManager.OnIsUserScoreShownOnLeaderboardsFailure = OnIsUserScoreShownOnLeaderboardsFailure;
+        HMSLeaderboardManager.Instance.IsUserScoreShownOnLeaderboards();
+        HMSLeaderboardManager.Instance.OnIsUserScoreShownOnLeaderboardsSuccess = OnIsUserScoreShownOnLeaderboardsSuccess;
+        HMSLeaderboardManager.Instance.OnIsUserScoreShownOnLeaderboardsFailure = OnIsUserScoreShownOnLeaderboardsFailure;
     }
 
     private void OnIsUserScoreShownOnLeaderboardsSuccess(int i)
@@ -227,13 +198,11 @@ public class GameDemoManager : MonoBehaviour
         Debug.Log("HMS Games: GetUserScoreShownOnLeaderboards ERROR ");
     }
 
-    // Set User Score Shown
-
     public void SetUserScoreShownOnLeaderboards(int active)
     {
-        leaderboardManager.SetUserScoreShownOnLeaderboards(active);
-        leaderboardManager.OnSetUserScoreShownOnLeaderboardsSuccess = OnSetUserScoreShownOnLeaderboardsSuccess;
-        leaderboardManager.OnSetUserScoreShownOnLeaderboardsFailure = OnSetUserScoreShownOnLeaderboardsFailure;
+        HMSLeaderboardManager.Instance.SetUserScoreShownOnLeaderboards(active);
+        HMSLeaderboardManager.Instance.OnSetUserScoreShownOnLeaderboardsSuccess = OnSetUserScoreShownOnLeaderboardsSuccess;
+        HMSLeaderboardManager.Instance.OnSetUserScoreShownOnLeaderboardsFailure = OnSetUserScoreShownOnLeaderboardsFailure;
 
     }
 
@@ -247,20 +216,17 @@ public class GameDemoManager : MonoBehaviour
         Debug.Log("HMS Games: SetUserScoreShownOnLeaderboards ERROR ");
     }
 
-
-    // Submit Score
-
     public void SubmitScore(string leaderboardId, long score, string scoreTips)
     {
         if (customUnit)
         {
-            leaderboardManager.SubmitScore(leaderboardId, score, scoreTips);
-            leaderboardManager.OnSubmitScoreSuccess = OnSubmitScoreSuccess;
-            leaderboardManager.OnSubmitScoreFailure = OnSubmitScoreFailure;
+            HMSLeaderboardManager.Instance.SubmitScore(leaderboardId, score, scoreTips);
+            HMSLeaderboardManager.Instance.OnSubmitScoreSuccess = OnSubmitScoreSuccess;
+            HMSLeaderboardManager.Instance.OnSubmitScoreFailure = OnSubmitScoreFailure;
         }
         else
         {
-            leaderboardManager.SubmitScore(leaderboardId, score);
+            HMSLeaderboardManager.Instance.SubmitScore(leaderboardId, score);
         }
 
     }
@@ -276,13 +242,11 @@ public class GameDemoManager : MonoBehaviour
 
     }
 
-    // Show Leaderboards
-
     public void ShowLeaderboards()
     {
-        leaderboardManager.ShowLeaderboards();
-        leaderboardManager.OnShowLeaderboardsSuccess = OnShowLeaderboardsSuccess;
-        leaderboardManager.OnShowLeaderboardsFailure = OnShowLeaderboardsFailure;
+        HMSLeaderboardManager.Instance.ShowLeaderboards();
+        HMSLeaderboardManager.Instance.OnShowLeaderboardsSuccess = OnShowLeaderboardsSuccess;
+        HMSLeaderboardManager.Instance.OnShowLeaderboardsFailure = OnShowLeaderboardsFailure;
 
     }
 
@@ -298,13 +262,11 @@ public class GameDemoManager : MonoBehaviour
 
     }
 
-    // Get Leadeboards Data
-
     public void GetLeaderboardsData(string leaderboardId)
     {
-        leaderboardManager.GetLeaderboardData(leaderboardId);
-        leaderboardManager.OnGetLeaderboardDataSuccess = OnGetLeaderboardDataSuccess;
-        leaderboardManager.OnGetLeaderboardsDataFailure = OnGetLeaderboardsDataFailure;
+        HMSLeaderboardManager.Instance.GetLeaderboardData(leaderboardId);
+        HMSLeaderboardManager.Instance.OnGetLeaderboardDataSuccess = OnGetLeaderboardDataSuccess;
+        HMSLeaderboardManager.Instance.OnGetLeaderboardsDataFailure = OnGetLeaderboardsDataFailure;
 
     }
 
@@ -319,15 +281,13 @@ public class GameDemoManager : MonoBehaviour
 
     }
 
-    // Get Scores From Leaderboard
-
     public void GetScoresFromLeaderboard(string leaderboardId, int timeDimension, int maxResults, int offsetPlayerRank, int pageDirection)
     {
 
-        leaderboardManager.GetScoresFromLeaderboard(leaderboardId, timeDimension, maxResults, offsetPlayerRank, pageDirection);
+        HMSLeaderboardManager.Instance.GetScoresFromLeaderboard(leaderboardId, timeDimension, maxResults, offsetPlayerRank, pageDirection);
 
-        leaderboardManager.OnGetScoresFromLeaderboardSuccess = OnGetScoresFromLeaderboardSuccess;
-        leaderboardManager.OnGetScoresFromLeaderboardFailure = OnGetScoresFromLeaderboardFailure;
+        HMSLeaderboardManager.Instance.OnGetScoresFromLeaderboardSuccess = OnGetScoresFromLeaderboardSuccess;
+        HMSLeaderboardManager.Instance.OnGetScoresFromLeaderboardFailure = OnGetScoresFromLeaderboardFailure;
 
     }
 
@@ -340,8 +300,4 @@ public class GameDemoManager : MonoBehaviour
     {
         Debug.Log("HMS Games: GetScoresFromLeaderboard ERROR ");
     }
-
-
 }
-
-#endif

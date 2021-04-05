@@ -248,8 +248,8 @@ PlayerSettings:
   AndroidTargetArchitectures: 1
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/y00429754/Desktop/RefGame/hopsek-gmsonlyapp1.keystore
-  AndroidKeyaliasName: hopsekgmsonlyapp1_key_sgn
+  AndroidKeystoreName: '{dedicated}: Desktop/user.keystore'
+  AndroidKeyaliasName: samdebug
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
@@ -668,7 +668,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
-    7: GMS_BUILD
+    7: HMS_BUILD
   platformArchitecture: {}
   scriptingBackend: {}
   il2cppCompilerConfiguration: {}

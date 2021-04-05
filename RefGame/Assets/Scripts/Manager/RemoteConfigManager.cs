@@ -19,19 +19,12 @@ public class RemoteConfigManager : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
-            Init();
         }
-    }
-
-
-    private void Init()
-    {
-
     }
 
     private void Start()
     {
-        HMSRemoteConfigManager.Instance.OnInitialize = OnRemoteConfigInit;
+        OnRemoteConfigInit();
     }
 
     private void OnRemoteConfigInit()

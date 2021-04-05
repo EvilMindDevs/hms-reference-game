@@ -7,37 +7,33 @@ using HuaweiMobileServices.Base;
 using HuaweiMobileServices.Utils;
 using System.Xml.Linq;
 using System.Xml;
+using HmsPlugin;
 
-#if HMS_BUILD
-
-public class HMSRemoteConfigManager : MonoBehaviour
+public class HMSRemoteConfigManager : HMSSingleton<HMSRemoteConfigManager>
 {
-
-    private static HMSRemoteConfigManager _instance;
-    public static HMSRemoteConfigManager Instance => _instance;
-    string TAG = "RemoteConfig Manager";
+    string TAG = "HMSRemoteConfig Manager";
 
     public Action<ConfigValues> OnFecthSuccess { get; set; }
     public Action<HMSException> OnFecthFailure { get; set; }
 
-    public Action OnInitialize { get; set; }
-
     IAGConnectConfig agc = null;
 
-    private void Awake()
+    public override void Awake()
     {
-        if (_instance != null && _instance != this)
-            Destroy(gameObject);
-        else
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-    }
-
-    void Start()
-    {
+        base.Awake();
         GetInstance();
+        if (HMSRemoteConfigSettings.Instance != null)
+        {
+            SetDeveloperMode(HMSRemoteConfigSettings.Instance.Settings.GetBool(HMSRemoteConfigSettings.DeveloperMode));
+            if (HMSRemoteConfigSettings.Instance.Settings.GetBool(HMSRemoteConfigSettings.ApplyDefaultValues))
+            {
+                var values = HMSRemoteDefaultValueSettings.Instance.GetDefaultValues();
+                if (values != null && values.Count > 0)
+                {
+                    ApplyDefault(values);
+                }
+            }
+        }
         Debug.Log($"[{TAG}]: Start() ");
     }
 
@@ -46,13 +42,12 @@ public class HMSRemoteConfigManager : MonoBehaviour
     {
         if (agc == null) agc = AGConnectConfig.GetInstance();
         Debug.Log($"[{TAG}]: GetInstance() {agc}");
-        OnInitialize?.Invoke();
     }
 
     //applyDefault(int resId) Sets a default value for a parameter.
     public void ApplyDefault(Dictionary<string, object> dictionary)
     {
-        if(agc != null) agc.ApplyDefault(dictionary);
+        if (agc != null) agc.ApplyDefault(dictionary);
         Debug.Log($"[{TAG}]: applyDefault with Dictionary");
     }
 
@@ -154,6 +149,3 @@ public class HMSRemoteConfigManager : MonoBehaviour
     public string GetValueAsString(string paramString) => agc.GetValueAsString(paramString);
 
 }
-
-
-#endif

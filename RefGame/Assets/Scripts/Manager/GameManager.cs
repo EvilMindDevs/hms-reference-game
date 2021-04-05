@@ -60,11 +60,6 @@ public class GameManager : MonoBehaviour
 
     System.Random rand = new System.Random();
 #if HMS_BUILD
-
-    private AnalyticsManager analyticsManager;
-    private InterstitialAdManager interstitalAdManager;
-    private LeaderboardManager leaderboardManager;
-    private AchievementsManager achievementsManager;
     private HuaweiIdAuthService authService;
 #endif
     private void Awake()
@@ -105,11 +100,6 @@ public class GameManager : MonoBehaviour
             if (count > platformCount)
                 break;
         }
-#if HMS_BUILD
-
-        analyticsManager = AnalyticsManager.GetInstance();
-        interstitalAdManager = InterstitialAdManager.GetInstance();
-#endif
     }
 
     public void OnGameStart()
@@ -123,14 +113,12 @@ public class GameManager : MonoBehaviour
 #if HMS_BUILD
 
         if (Score > 10)
-            achievementsManager.UnlockAchievement(achievementId);
-        analyticsManager.SendEventWithBundle("$Scoring", "$Score", Score);
-        if (leaderboardManager == null)
-            Debug.Log("Leaderboard null");
-        leaderboardManager.SubmitScore(leaderboardId, Score);
-        if (interstitalAdManager == null)
-            Debug.Log("interstitalAdManager null");
-        interstitalAdManager.ShowInterstitialAd();
+            HMSAchievementsManager.Instance.UnlockAchievement(achievementId);
+        HMSAnalyticsManager.Instance.SendEventWithBundle("$Scoring", "$Score", Score);
+      
+        HMSLeaderboardManager.Instance.SubmitScore(leaderboardId, Score);
+        
+        HMSAdsKitManager.Instance.ShowInterstitialAd();
 #endif
     }
 
@@ -210,7 +198,7 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         #if HMS_BUILD
-        if (AccountManager.Instance != null && AccountManager.Instance.IsSignedIn)
+        if (HMSAccountManager.Instance.IsSignedIn())
             ArrangeManagers();
         #elif GMS_BUILD
         if (GMSAuthManager.GetInstance() != null)
@@ -252,9 +240,7 @@ public class GameManager : MonoBehaviour
     {
 #if HMS_BUILD
 
-        HMSGameManager.GetInstance().Init();
-        achievementsManager = AchievementsManager.GetInstance();
-        leaderboardManager = LeaderboardManager.GetInstance();
+        HMSGameManager.Instance.Init();
 #endif
     }
 }

@@ -26,15 +26,6 @@ public class MainMenu : SimpleMenu<MainMenu>
     [SerializeField]
     private GameObject removeAdsButton;
 
-#if HMS_BUILD
-    private AccountManager accountManager;
-
-
-    private LeaderboardManager leaderboardManager;
-    private AchievementsManager achievementsManager;
-    private IapManager iapManager;
-#endif
-    private string removeAds = "com.samet.reffapp.huawei.removeads";
 
     List<ProductInfo> productInfoList = new List<ProductInfo>();
     List<string> productPurchasedList = new List<string>();
@@ -53,17 +44,10 @@ public class MainMenu : SimpleMenu<MainMenu>
 #endif
 #if HMS_BUILD
         signinGoogleButton.SetActive(false);
-        accountManager = AccountManager.Instance;
-        accountManager.OnSignInSuccess = OnLoginSuccess;
-        accountManager.OnSignInFailed = OnSignInFailed;
-        huaweiButton.SetActive(!accountManager.IsSignedIn);
-        groupButton.SetActive(accountManager.IsSignedIn);
-        removeAdsButton.SetActive(!accountManager.removeAdsBought);
-        if (accountManager.IsSignedIn)
-        {
-            leaderboardManager = LeaderboardManager.GetInstance();
-            achievementsManager = AchievementsManager.GetInstance();
-        }
+        HMSAccountManager.Instance.OnSignInSuccess = OnLoginSuccess;
+        HMSAccountManager.Instance.OnSignInFailed = OnSignInFailed;
+        huaweiButton.SetActive(!HMSAccountManager.Instance.IsSignedIn());
+        groupButton.SetActive(HMSAccountManager.Instance.IsSignedIn());
 #endif
     }
 
@@ -84,14 +68,9 @@ public class MainMenu : SimpleMenu<MainMenu>
         }
 #endif
 #if HMS_BUILD
-        if (accountManager != null)
-        {
-            accountManager.SignIn();
-        }
-        else
-        {
-            Debug.LogError("Account Manager is null");
-        }
+
+        HMSAccountManager.Instance.SignIn();
+
 #endif
     }
     IEnumerator OnLoginCO()
@@ -106,12 +85,12 @@ public class MainMenu : SimpleMenu<MainMenu>
 #endif
     }
 
-    private void OnLoginSuccess(AuthHuaweiId obj)
+    private void OnLoginSuccess(AuthAccount obj)
     {
         StartCoroutine(OnLoginCO(obj));
     }
 
-    IEnumerator OnLoginCO(AuthHuaweiId obj)
+    IEnumerator OnLoginCO(AuthAccount obj)
     {
         Debug.Log("Waiting for frame");
         yield return new WaitForEndOfFrame();
@@ -122,15 +101,13 @@ public class MainMenu : SimpleMenu<MainMenu>
 #endif
 
 #if HMS_BUILD
-        leaderboardManager = LeaderboardManager.GetInstance();
-        achievementsManager = AchievementsManager.GetInstance();
-        iapManager = IapManager.GetInstance();
-        iapManager.OnCheckIapAvailabilityFailure = (error) =>
+    
+        HMSIAPManager.Instance.OnCheckIapAvailabilityFailure = (error) =>
         {
             Debug.Log($"[HMSPlugin]: IAP check failed. {error.Message}");
         };
-        iapManager.OnCheckIapAvailabilitySuccess = OnCheckIapAvailabilitySuccess;
-        iapManager.CheckIapAvailability();
+        HMSIAPManager.Instance.OnCheckIapAvailabilitySuccess = OnCheckIapAvailabilitySuccess;
+        HMSIAPManager.Instance.CheckIapAvailability();
         groupButton.SetActive(true);
         huaweiButton.SetActive(false);
 #endif
@@ -141,7 +118,7 @@ public class MainMenu : SimpleMenu<MainMenu>
 
 #if HMS_BUILD
         Debug.Log("[HMS]: LoadStore");
-        iapManager.OnObtainProductInfoSuccess = (productInfoResultList) =>
+        HMSIAPManager.Instance.OnObtainProductInfoSuccess = (productInfoResultList) =>
         {
             if (productInfoResultList != null)
             {
@@ -156,70 +133,39 @@ public class MainMenu : SimpleMenu<MainMenu>
             RestorePurchases();
         };
         // Set Callback for ObtainInfoFailure
-        iapManager.OnObtainProductInfoFailure = (error) =>
+        HMSIAPManager.Instance.OnObtainProductInfoFailure = (error) =>
         {
             Debug.Log($"[HMSPlugin]: IAP ObtainProductInfo failed. {error.WrappedCauseMessage + error.WrappedExceptionMessage}");
         };
 
         // Call ObtainProductInfo 
-        iapManager.ObtainProductInfo(new List<string>(), new List<string>() { removeAds }, new List<string>());
+        HMSIAPManager.Instance.ObtainProductInfo(new List<string>(), new List<string>() { HMSIAPConstants.comsametreffapphuaweiremoveads }, new List<string>());
 #endif
     }
 
     public void BuyProduct(string productID)
     {
 #if HMS_BUILD
-        iapManager.OnBuyProductSuccess = (purchaseResultInfo) =>
-        {
-            iapManager.ConsumePurchase(purchaseResultInfo);
-            accountManager.removeAdsBought = true;
-        };
-
-        iapManager.OnBuyProductFailure = (errorCode) =>
-        {
-            switch (errorCode)
-            {
-                case OrderStatusCode.ORDER_STATE_CANCEL:
-
-                    Debug.Log("[HMS]: User cancel payment");
-                    break;
-                case OrderStatusCode.ORDER_STATE_FAILED:
-                    Debug.Log("[HMS]: order payment failed");
-                    break;
-
-                case OrderStatusCode.ORDER_PRODUCT_OWNED:
-                    Debug.Log("[HMS]: Product owned");
-                    break;
-                default:
-                    Debug.Log("[HMS:] BuyProduct ERROR" + errorCode);
-                    break;
-            }
-        };
-
-        var productInfo = productInfoList.Find(info => info.ProductId == productID);
-        var payload = "test";
-
-        iapManager.BuyProduct(productInfo, payload);
+        HMSIAPManager.Instance.BuyProduct(productID);
 #endif
     }
 
     private void RestorePurchases()
     {
 #if HMS_BUILD
-        iapManager.OnObtainOwnedPurchasesSuccess = (ownedPurchaseResult) =>
+        HMSIAPManager.Instance.OnObtainOwnedPurchasesSuccess = (ownedPurchaseResult) =>
         {
             productPurchasedList = (List<string>)ownedPurchaseResult.InAppPurchaseDataList;
-            accountManager.removeAdsBought = true;
             removeAdsButton.gameObject.SetActive(false);
-            BannerAdsManager.GetInstance().HideBannerAd();
+            HMSAdsKitManager.Instance.HideBannerAd();
         };
 
-        iapManager.OnObtainOwnedPurchasesFailure = (error) =>
+        HMSIAPManager.Instance.OnObtainOwnedPurchasesFailure = (error) =>
         {
             Debug.Log("[HMS:] RestorePurchasesError" + error.Message);
         };
 
-        iapManager.ObtainOwnedPurchases();
+        HMSIAPManager.Instance.ObtainOwnedPurchases();
 #endif
     }
 
@@ -250,34 +196,32 @@ public class MainMenu : SimpleMenu<MainMenu>
 #elif HMS_BUILD
 
         if (Time.timeSinceLevelLoad < Const.GAME_WAIT_TIME) return;
-        GameMenu.Show(accountManager.HuaweiId.DisplayName);
+        GameMenu.Show(HMSAccountManager.Instance.HuaweiId.DisplayName);
 #endif
     }
 
     public void OnLeaderboardsClick()
     {
-        #if HMS_BUILD
-        if (leaderboardManager != null)
-        {
-            leaderboardManager.SetUserScoreShownOnLeaderboards(1);
-            leaderboardManager.ShowLeaderboards();
-        }
-        #endif
+#if HMS_BUILD
+
+        HMSLeaderboardManager.Instance.SetUserScoreShownOnLeaderboards(1);
+        HMSLeaderboardManager.Instance.ShowLeaderboards();
+        
+#endif
     }
 
     public void OnAchievementsClick()
     {
         #if HMS_BUILD
-        if (achievementsManager != null)
-        {
-            achievementsManager.ShowAchievements();
-        }
+
+        HMSAchievementsManager.Instance.ShowAchievements();
+
 #endif
     }
 
     public void OnRemoveAdsClick()
     {
-        BuyProduct(removeAds);
+        BuyProduct(HMSIAPConstants.comsametreffapphuaweiremoveads);
     }
 
     public void OnRestoreClick()

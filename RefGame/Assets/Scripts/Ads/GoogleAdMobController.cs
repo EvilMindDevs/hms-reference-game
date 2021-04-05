@@ -55,6 +55,8 @@ public class GoogleAdMobController : Singleton<GoogleAdMobController>
         MobileAds.Initialize(HandleInitCompleteAction);
 
         this.RequestAndLoadInterstitialAd();
+
+        this.RequestAndLoadRewardedAd();
     }
 
     private void HandleInitCompleteAction(InitializationStatus initstatus)
