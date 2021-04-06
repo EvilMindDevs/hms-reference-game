@@ -4,8 +4,8 @@ Unity Reference Game Application with GMS + HMS integration(Unity+HMS+GMS)
 
 Hyper-casual / agility game
 
-![](https://github.com/EvilMindDevs/hms-reference-game/blob/PluginV2/RefGame/testss%20(1).jpg | width=100)
 
+<img src="https://github.com/EvilMindDevs/hms-reference-game/blob/PluginV2/RefGame/testss%20(1).jpg" width="48">
 
 ## 1. GMS Integration Guideline
 
