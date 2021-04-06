@@ -56,9 +56,6 @@ namespace HmsPlugin
         public AuthAccount HuaweiId { get; set; }
         public Action<AuthAccount> OnSignInSuccess { get; set; }
         public Action<HMSException> OnSignInFailed { get; set; }
-        public bool IsSignedIn () {
-            return HuaweiId != null;
-        }
 
         private AccountAuthService authService, authServiceDrive;
 
@@ -133,6 +130,11 @@ namespace HmsPlugin
             {
                 OnSignInFailed?.Invoke(exception);
             });
+        }
+
+        public bool IsSignedIn()
+        {
+          return HuaweiId != null;
         }
     }
 }

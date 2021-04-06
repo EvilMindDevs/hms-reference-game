@@ -1,21 +1,10 @@
 {
 	"agcgw":{
 		"backurl":"connect-dre.dbankcloud.cn",
-		"url":"connect-dre.hispace.hicloud.com",
-		"websocketbackurl":"connect-ws-dre.hispace.dbankcloud.cn",
-		"websocketurl":"connect-ws-dre.hispace.dbankcloud.com"
-	},
-	"agcgw_all":{
-		"CN":"connect-drcn.hispace.hicloud.com",
-		"CN_back":"connect-drcn.dbankcloud.cn",
-		"DE":"connect-dre.hispace.hicloud.com",
-		"DE_back":"connect-dre.dbankcloud.cn",
-		"RU":"connect-drru.hispace.hicloud.com",
-		"RU_back":"connect-drru.dbankcloud.cn",
-		"SG":"connect-dra.hispace.hicloud.com",
-		"SG_back":"connect-dra.dbankcloud.cn"
+		"url":"connect-dre.hispace.hicloud.com"
 	},
 	"client":{
+		"appType":"1",
 		"cp_id":"890090000023105639",
 		"product_id":"736430079244750151",
 		"client_id":"522090895772746816",
@@ -42,11 +31,5 @@
 		}
 	},
 	"region":"DE",
-	"configuration_version":"2.0",
-	"appInfos":[
-		{
-			"package_name":"com.samet.reffapp.huawei",
-			"app_id":"103529037"
-		}
-	]
+	"configuration_version":"1.0"
 }

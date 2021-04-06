@@ -8,7 +8,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class GameOverMenu : SimpleMenu<GameOverMenu>
 {
@@ -19,26 +18,19 @@ public class GameOverMenu : SimpleMenu<GameOverMenu>
 
     private int continueClickCount;
 
+
     private bool rewarded = false;
-    public UnityEvent OnUserEarnedRewardEvent;
 
     private void Start()
     {
-
         transform.SetAsFirstSibling();
-#if GMS_BUILD
-        OnUserEarnedRewardEvent = GoogleAdMobController.Instance.OnUserEarnedRewardEvent;
-        OnUserEarnedRewardEvent.AddListener(OnAddRewarded);
-#endif
+
 #if HMS_BUILD
+
         HMSAdsKitManager.Instance.OnRewarded = OnAddRewarded;
 #endif
     }
-    private void OnAddRewarded()
-    {
-        rewarded = true;
-        Debug.Log("rewarded gms ");
-    }
+
     private void OnAddRewarded(Reward obj)
     {
         rewarded = true;

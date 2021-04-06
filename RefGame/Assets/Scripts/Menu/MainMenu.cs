@@ -26,6 +26,7 @@ public class MainMenu : SimpleMenu<MainMenu>
     [SerializeField]
     private GameObject removeAdsButton;
 
+    private string removeAds = "com.samet.reffapp.huawei.removeads";
 
     List<ProductInfo> productInfoList = new List<ProductInfo>();
     List<string> productPurchasedList = new List<string>();
@@ -44,10 +45,12 @@ public class MainMenu : SimpleMenu<MainMenu>
 #endif
 #if HMS_BUILD
         signinGoogleButton.SetActive(false);
+
         HMSAccountManager.Instance.OnSignInSuccess = OnLoginSuccess;
         HMSAccountManager.Instance.OnSignInFailed = OnSignInFailed;
         huaweiButton.SetActive(!HMSAccountManager.Instance.IsSignedIn());
         groupButton.SetActive(HMSAccountManager.Instance.IsSignedIn());
+ 
 #endif
     }
 
@@ -68,9 +71,9 @@ public class MainMenu : SimpleMenu<MainMenu>
         }
 #endif
 #if HMS_BUILD
-
+        
         HMSAccountManager.Instance.SignIn();
-
+ 
 #endif
     }
     IEnumerator OnLoginCO()
@@ -101,7 +104,7 @@ public class MainMenu : SimpleMenu<MainMenu>
 #endif
 
 #if HMS_BUILD
-    
+
         HMSIAPManager.Instance.OnCheckIapAvailabilityFailure = (error) =>
         {
             Debug.Log($"[HMSPlugin]: IAP check failed. {error.Message}");
@@ -139,13 +142,14 @@ public class MainMenu : SimpleMenu<MainMenu>
         };
 
         // Call ObtainProductInfo 
-        HMSIAPManager.Instance.ObtainProductInfo(new List<string>(), new List<string>() { HMSIAPConstants.comsametreffapphuaweiremoveads }, new List<string>());
+        HMSIAPManager.Instance.ObtainProductInfo(new List<string>(), new List<string>() { removeAds }, new List<string>());
 #endif
     }
 
     public void BuyProduct(string productID)
     {
 #if HMS_BUILD
+        
         HMSIAPManager.Instance.BuyProduct(productID);
 #endif
     }
@@ -202,12 +206,12 @@ public class MainMenu : SimpleMenu<MainMenu>
 
     public void OnLeaderboardsClick()
     {
-#if HMS_BUILD
-
-        HMSLeaderboardManager.Instance.SetUserScoreShownOnLeaderboards(1);
-        HMSLeaderboardManager.Instance.ShowLeaderboards();
-        
-#endif
+        #if HMS_BUILD
+    
+         HMSLeaderboardManager.Instance.SetUserScoreShownOnLeaderboards(1);
+         HMSLeaderboardManager.Instance.ShowLeaderboards();
+       
+        #endif
     }
 
     public void OnAchievementsClick()
@@ -216,12 +220,12 @@ public class MainMenu : SimpleMenu<MainMenu>
 
         HMSAchievementsManager.Instance.ShowAchievements();
 
-#endif
+        #endif
     }
 
     public void OnRemoveAdsClick()
     {
-        BuyProduct(HMSIAPConstants.comsametreffapphuaweiremoveads);
+        BuyProduct(removeAds);
     }
 
     public void OnRestoreClick()

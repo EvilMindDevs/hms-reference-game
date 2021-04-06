@@ -22,9 +22,11 @@ public class RemoteConfigManager : MonoBehaviour
         }
     }
 
+
+
     private void Start()
     {
-        OnRemoteConfigInit();
+       OnRemoteConfigInit();
     }
 
     private void OnRemoteConfigInit()

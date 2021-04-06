@@ -100,6 +100,7 @@ public class GameManager : MonoBehaviour
             if (count > platformCount)
                 break;
         }
+ 
     }
 
     public void OnGameStart()
@@ -115,9 +116,9 @@ public class GameManager : MonoBehaviour
         if (Score > 10)
             HMSAchievementsManager.Instance.UnlockAchievement(achievementId);
         HMSAnalyticsManager.Instance.SendEventWithBundle("$Scoring", "$Score", Score);
-      
+ 
         HMSLeaderboardManager.Instance.SubmitScore(leaderboardId, Score);
-        
+
         HMSAdsKitManager.Instance.ShowInterstitialAd();
 #endif
     }
@@ -241,6 +242,7 @@ public class GameManager : MonoBehaviour
 #if HMS_BUILD
 
         HMSGameManager.Instance.Init();
+
 #endif
     }
 }

@@ -13,7 +13,5 @@ MonoBehaviour:
   m_Name: HMSIAPProductListSettings
   m_EditorClassIdentifier: 
   settings:
-    _keys:
-    - com.samet.reffapp.huawei.removeads
-    _values:
-    - NonConsumable
+    _keys: []
+    _values: []
