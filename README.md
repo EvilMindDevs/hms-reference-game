@@ -89,10 +89,10 @@ for both GMS and HMS(section 2.1) together
 		  project and want to use 2.0 version by upgrading it .
 
 
-### HMS Integration Installation Guide
+## HMS Integration Installation Guide
 	For first time integration users
 
-## Huawei Mobile Services Plugin
+### Huawei Mobile Services Plugin
 
 The HMS Unity plugin helps you integrate all the power of Huawei Mobile Services in your Unity game
 
@@ -108,37 +108,38 @@ Integrated HMS kits in this project:
 * Remote Config
 
 
-## Requirements
+### Requirements
 Android SDK min 21
+
 Net 4.x
 
-## Important
+### Important
 This plugin supports:
 * Unity version 2019, 2020 - Developed in 2.0 git branch
 
 
 **Make sure to download the corresponding unity package for the Unity version you are using from the release section**
 
-## Troubleshooting
+### Troubleshooting
 Please check our [wiki page](https://github.com/EvilMindDevs/hms-unity-plugin/wiki/Troubleshooting)
 
-## Status
+### Status
 This is an ongoing project, currently WIP. Feel free to contact us if you'd like to collaborate and use Github issues for any problems you might encounter.
 
-### Expected soon features
+#### Expected soon features
 * Native Ads Integration
 
-## Connect your game Huawei Mobile Services in 5 easy steps
+### Connect your game Huawei Mobile Services in 5 easy steps
 
 1. Register your app at Huawei Developer
 2. Import the Plugin to your Unity project
 3. Connect your game with the HMS Kit Managers
 
-### 1 - Register your app at Huawei Developer
+#### 1 - Register your app at Huawei Developer
 
-#### 1.1-  Register at [Huawei Developer](https://developer.huawei.com/consumer/en/)
+##### 1.1-  Register at [Huawei Developer](https://developer.huawei.com/consumer/en/)
 
-#### 1.2 - Create an app in AppGallery Connect.
+##### 1.2 - Create an app in AppGallery Connect.
 During this step, you will create an app in AppGallery Connect (AGC) of HUAWEI Developer. When creating the app, you will need to enter the app name, app category, default language, and signing certificate fingerprint. After the app has been created, you will be able to obtain the basic configurations for the app, for example, the app ID and the CPID.
 
 1. Sign in to Huawei Developer and click **Console**.
@@ -148,7 +149,7 @@ During this step, you will create an app in AppGallery Connect (AGC) of HUAWEI D
 5. Enter the App name, select App category (Game), and select Default language as needed.
 6. Upon successful app creation, the App information page will automatically display. There you can find the App ID and CPID that are assigned by the system to your app.
 
-#### 1.3 Add Package Name
+##### 1.3 Add Package Name
 Set the package name of the created application on the AGC.
 
 1. Open the previously created application in AGC application management and select the **Develop TAB** to pop up an entry to manually enter the package name and select **manually enter the package name**.
@@ -156,12 +157,12 @@ Set the package name of the created application on the AGC.
 
 > Your package name should end in .huawei in order to release in App Gallery
 
-#### Generate a keystore.
+##### Generate a keystore.
 
 Create a keystore using Unity or Android Tools. make sure your Unity project uses this keystore under the **Build Settings>PlayerSettings>Publishing settings**
 
 
-#### Generate a signing certificate fingerprint.
+##### Generate a signing certificate fingerprint.
 
 During this step, you will need to export the SHA-256 fingerprint by using keytool provided by the JDK and signature file.
 
@@ -173,7 +174,7 @@ During this step, you will need to export the SHA-256 fingerprint by using keyto
 4. Obtain the SHA-256 fingerprint from the result. Save for next step.
 
 
-#### Add fingerprint certificate to AppGallery Connect
+##### Add fingerprint certificate to AppGallery Connect
 During this step, you will configure the generated SHA-256 fingerprint in AppGallery Connect.
 
 1. In AppGallery Connect, click the app that you have created and go to **Develop> Overview**
@@ -182,7 +183,7 @@ During this step, you will configure the generated SHA-256 fingerprint in AppGal
 
 ____
 
-### 2 - Import the plugin to your Unity Project
+#### 2 - Import the plugin to your Unity Project
 
 To import the plugin:
 
@@ -195,17 +196,19 @@ To import the plugin:
 5. Select Import and Unity will deploy the Unity plugin into your Assets Folder
 ____
 
-### 3 - Update your agconnect-services.json file.
+#### 3 - Update your agconnect-services.json file.
 
 In order for the plugin to work, some kits are in need of agconnect-json file. Please download your latest config file from AGC and import into Assets/StreamingAssets folder.
 ![image](https://user-images.githubusercontent.com/6827857/113585485-f488bd80-9634-11eb-8b1e-6d0b5e06ecf0.png)
 ____
-### 4 - Specify your project building settings on Unity Editor .
-	Configure your unity editor build settings for GMS build as follow :
-            In Unity Editor File-> Build Settings -> Player Settings... -> Other Settings 
-			Set "Scripting Define Symbols" as GMS_BUILD (default value: GMS_BUILD)
+#### 4 - Specify your project building settings on Unity Editor .
+Configure your unity editor build settings for GMS build as follow :
 
-### 5 - Connect your game with any HMS Kit
+In Unity Editor,  File -> Build Settings -> Player Settings... -> Other Settings 
+
+Set "Scripting Define Symbols" as ***GMS_BUILD*** (default value: GMS_BUILD)
+
+#### 5 - Connect your game with any HMS Kit
 
 In order for the plugin to work, you need to select the needed kits Huawei > Kit Settings.
 
@@ -215,14 +218,14 @@ It will automaticly create the GameObject for you and it has DontDestroyOnLoad i
 
 Now you need your game to call the Kit Managers from your game. See below for further instructions.
     
-##### Account Kit (Sign In)
+#### Account Kit (Sign In)
 Call login method in order to open the login dialog. Be sure to have AccountKit enabled in Huawei > Kit Settings.
 
 ```csharp
 HMSAccountManager.Instance.SignIn();
 ```
 
-##### Analytics kit
+#### Analytics kit
  
 1. Enable Analtics kit from AGC
 2. Update ...Assets\StreamingAssets\agconnect-services.json file
@@ -233,7 +236,7 @@ HMSAccountManager.Instance.SignIn();
 HMSAnalyticsManager.Instance.SendEventWithBundle(eventId, key, value);
   ```
   
-##### In App Purchases
+#### In App Purchases
 Register your products via custom editor under Huawei > Kit Settings > IAP tab.
 ![image](https://user-images.githubusercontent.com/6827857/113579431-f8184680-962c-11eb-9bfd-13ec69402536.png)
 Write your product identifier that is in AGC and select product type.
@@ -286,7 +289,7 @@ You can also use "Create Constant Classes" button to create a class called HMSIA
 HMSIAPManager.Instance.BuyProduct(HMSIAPConstants.testProduct);
 ```
 
-##### Ads kit
+#### Ads kit
 There is a custom editor in Huawei > Kit Settings > Ads tab.
 ![image](https://user-images.githubusercontent.com/6827857/113583224-0ae14a00-9632-11eb-83c3-a45ab2699e4f.png)
 
@@ -309,7 +312,7 @@ Then you can call certain functions such as
     }
 ```
 
-##### Game kit
+#### Game kit
 There is a custom editor in Huawei > Kit Settings > Game Service tab.
 ![image](https://user-images.githubusercontent.com/6827857/113587013-e6d43780-9636-11eb-8621-8fc4d0fdb433.png)
 
@@ -374,78 +377,93 @@ Official Documentation on Analytics Kit: [ Documentation](https://developer.huaw
 
 Official Documentation on Analytics Kit: [ Documentation](https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agc-clouddb-introduction)
 
-## Upgrade To HMS Unity Plugin VERSION 2.0 Guide
-	For users who already integrated HMS Unity Plugin Project's previous 1.X versions to their project and want to upgrade to HMS Unity Plugin version 2.0
-	
-		Here is some highlights about new plugin2.0, 
+## Upgrade To HMS Unity Plugin VERSİON 2.0 Guide
+For users who already integrated HMS Unity Plugin Project's previous 1.X versions to their project and want to upgrade to HMS Unity Plugin version 2.0
 
-		•	Reduce integration time and risk of integration issues
-		•	Minimum line of codes < almost codeless development experience> 
-		•	Added new custom Unity editors for easy implementation of kits ( that'll help junior developers to integrate Huawei Services into projects with few clicks ) 
-		•	Optimize and support latest HMS kit version
-		•	Gradle build for smooth procedure
-		•	Remove library files inside unity project
-		•   InAppPurchaseData elements can be separately maintained(instead of as a whole in 1.X versions)
+	Here is some highlights about new plugin 2.0, 
 
-	Follow these steps to upgrade your existing HMS Unity Plugin Integrated game project to 2.0 version:
-	Step 1. Backup your existing project
+	•	Reduce integration time and risk of integration issues
+	•	Minimum line of codes < almost codeless development experience> 
+	•	Added new custom Unity editors for easy implementation of kits ( that'll help junior developers to integrate Huawei Services into projects with few clicks ) 
+	•	Optimize and support latest HMS kit version
+	•	Gradle build for smooth procedure
+	•	Remove library files inside unity project
+	•   InAppPurchaseData elements can be separately maintained(instead of as a whole in 1.X versions)
+
+Follow these steps to upgrade your existing HMS Unity Plugin Integrated game project to 2.0 version:
+
+1. Backup your existing project
+
+2. Delete ***Huawei*** Directory in your project
+
+3. Download HMS Unity Plugin version 2 [.unitypackage](https://github.com/EvilMindDevs/hms-unity-plugin/releases/tag/2.0)
+
+4. Change hms unity plugin manager class names(from 1.0 version) that you already use in your project with their HMS-prefixed counterparts exist in 2.0 version as follow
+
+(Reason:Manager Class names changed to more HMS specific ones on 2.0 and singleton fix included)
+
+	achievementsManager  -->  HMSAchievementsManager
+	analyticsManager     -->  HMSAnalyticsManager
+	leaderboardManager   -->  HMSLeaderboardManager
+	interstitalAdManager -->  HMSAdsKitManager
+	rewardAdManager      -->  HMSAdsKitManager
+	AccountManager       -->  HMSAccountManager
+	AuthHuaweiId         -->  AuthAccount
+	iapManager           -->  HMSIAPManager
+	...
 	
-	Step 2. Delete Huawei Directory in your project
-	
-	Step 3. Download HMS Unity Plugin version 2 [.unitypackage](https://github.com/EvilMindDevs/hms-unity-plugin/releases/tag/2.0)
-	
-	Step 4. Change hms unity plugin manager class names(from 1.0 version) that you already use in your project with their HMS-prefixed counterparts exist in 2.0 version as follow
-	(Reason:Manager Class names changed to more HMS specific ones on 2.0 and singleton fix included)
-		achievementsManager  --> HMSAchievementsManager
-		analyticsManager     --> HMSAnalyticsManager
-		leaderboardManager   --> HMSLeaderboardManager
-		interstitalAdManager --> HMSAdsKitManager
-		rewardAdManager      --> HMSAdsKitManager
-		AccountManager       --> HMSAccountManager
-		AuthHuaweiId         --> AuthAccount
-		iapManager           --> HMSIAPManager
-		...
-		
-    Step 5. Singleton fix in 2.0 will allow null check removal & easier instance call .So if you have  implementations as below examples, change accordingly.
-		5.1 null check removal example 
-			private AccountManager accountManager;
-			if (accountManager != null)
-			{
-				accountManager.SignIn();                     ==>       HMSAccountManager.Instance.SignIn();
-			}
-			else
-			{
-				Debug.LogError("Account Manager is null");
-			}
-		5.2 Instance call example 
-				private IapManager iapManager;
-				iapManager = IapManager.GetInstance();       ==>       HMSIAPManager.Instance.CheckIapAvailability();
-				iapManager.CheckIapAvailability();
-				
-	Step 6.  In 2.0 , IAP Constants Class added so use it  instead of  class-local constant definition/usage
-	
+5. Singleton fix in 2.0 will allow null check removal & easier instance call .So if you have  implementations as below examples, change accordingly.
+5.1 null check removal example 
+```csharp
+	private AccountManager accountManager;
+	if (accountManager != null)
+	{
+		accountManager.SignIn();            ==>       HMSAccountManager.Instance.SignIn();
+	}
+	else
+	{
+		Debug.LogError("Account Manager is null");
+	}
+```
+5.2 Instance call example 
+```csharp
+	private IapManager iapManager;
+	iapManager = IapManager.GetInstance();   ==>       HMSIAPManager.Instance.CheckIapAvailability();
+	iapManager.CheckIapAvailability();
+```		
+6.  In 2.0 , IAP Constants Class added so use it  instead of  class-local constant definition/usage
+```csharp
 	private string removeAds = "com.samet.reffapp.huawei.removeads";  
-	BuyProduct(removeAds);									   			==>		BuyProduct(HMSIAPConstants.comsametreffapphuaweiremoveads);
-	
-	Step 7. Remove all .aar & .aar.meta, .jar, manifest files of previous HMS Unity Plugin (1.X) versions on the path: Assets\Plugins\Android
-	
-	Step 8. Remove unnecessary agconnect-services.json files . Only Assets\StreamingAssets  path should include "agconnect-services.json" file
-	(ex: \Assets\Plugins\Android\assets  or \Assets\Huawei path can include such not necessary-anymore agconnect-json file)
-	
-	Step 9.  Remove 1.0 version prefabs of the hms-based managers existing in your scenes if you use any in your project
-	
-	Step 10. Configure your unity editor build settings for HMS build as follow :
-            In Unity Editor File-> Build Settings -> Player Settings... -> Other Settings 
-			Set  "Scripting Define Symbols" as HMS_BUILD (default is GMS_BUILD)
-			
-______
+	BuyProduct(removeAds);					==> BuyProduct(HMSIAPConstants.comsametreffapphuaweiremoveads);
+```
+
+7. Remove all ***.aar*** & ***.aar.meta***, ***.jar***, manifest files of previous HMS Unity Plugin (1.X) versions on the path: Assets\Plugins\Android
+
+8. Remove unnecessary ***agconnect-services.json*** files . Only Assets\StreamingAssets  path should include ***agconnect-services.json*** file
+
+( \Assets\Plugins\Android\assets  or \Assets\Huawei paths can include such not necessary-anymore agconnect-json files)
+
+9.  Remove 1.0 version prefabs of the hms-based managers existing in your scenes if you use any in your project
+
+10. Configure your unity editor build settings for HMS build as follow :
+
+In Unity Editor File -> Build Settings -> Player Settings... -> Other Settings  
+		   
+Set  "Scripting Define Symbols" as ***HMS_BUILD*** (default is GMS_BUILD)
+		
+_____
 
 ###  Troubleshoot
- ***unamgious unity file change issue fix suggestion ***
- If you change content of codes or files related with unity project and face an unambigious issue:
+ ***unamgious unity file change issue fix suggestion***
+ 
+If you change content of codes or files related with unity project and face an unambigious issue:
+
 	1. Save your existing unity project 
+	
 	2. Backup  existing meta files of unity files that you have a problem on 
+	
 	3. Delete existing (.meta) metafile of it and try re-building your unity project
+	
 ______
 ## License
 
