@@ -202,8 +202,9 @@ In order for the plugin to work, some kits are in need of agconnect-json file. P
 ____
 #### 4 - Specify your project building settings on Unity Editor .
 Configure your unity editor build settings for GMS build as follow :
- In Unity Editor File-> Build Settings -> Player Settings... -> Other Settings 
- Set "Scripting Define Symbols" as GMS_BUILD (default value: GMS_BUILD)
+
+In Unity Editor File-> Build Settings -> Player Settings... -> Other Settings 
+Set "Scripting Define Symbols" as ***GMS_BUILD*** (default value: GMS_BUILD)
 
 #### 5 - Connect your game with any HMS Kit
 
@@ -388,14 +389,17 @@ For users who already integrated HMS Unity Plugin Project's previous 1.X version
 	•   InAppPurchaseData elements can be separately maintained(instead of as a whole in 1.X versions)
 
 Follow these steps to upgrade your existing HMS Unity Plugin Integrated game project to 2.0 version:
-Step 1. Backup your existing project
 
-Step 2. Delete Huawei Directory in your project
+1. Backup your existing project
 
-Step 3. Download HMS Unity Plugin version 2 [.unitypackage](https://github.com/EvilMindDevs/hms-unity-plugin/releases/tag/2.0)
+2. Delete ***Huawei*** Directory in your project
 
-Step 4. Change hms unity plugin manager class names(from 1.0 version) that you already use in your project with their HMS-prefixed counterparts exist in 2.0 version as follow
+3. Download HMS Unity Plugin version 2 [.unitypackage](https://github.com/EvilMindDevs/hms-unity-plugin/releases/tag/2.0)
+
+4. Change hms unity plugin manager class names(from 1.0 version) that you already use in your project with their HMS-prefixed counterparts exist in 2.0 version as follow
+
 (Reason:Manager Class names changed to more HMS specific ones on 2.0 and singleton fix included)
+
 	achievementsManager  -->  HMSAchievementsManager
 	analyticsManager     -->  HMSAnalyticsManager
 	leaderboardManager   -->  HMSLeaderboardManager
@@ -406,40 +410,42 @@ Step 4. Change hms unity plugin manager class names(from 1.0 version) that you a
 	iapManager           -->  HMSIAPManager
 	...
 	
-   Step 5. Singleton fix in 2.0 will allow null check removal & easier instance call .So if you have  implementations as below examples, change accordingly.
-	5.1 null check removal example 
-	```csharp
-		private AccountManager accountManager;
-		if (accountManager != null)
-		{
-			accountManager.SignIn();                  ==>       HMSAccountManager.Instance.SignIn();
-		}
-		else
-		{
-			Debug.LogError("Account Manager is null");
-		}
-		```
-	5.2 Instance call example 
-	```csharp
-			private IapManager iapManager;
-			iapManager = IapManager.GetInstance();    ==>       HMSIAPManager.Instance.CheckIapAvailability();
-			iapManager.CheckIapAvailability();
-	```		
-Step 6.  In 2.0 , IAP Constants Class added so use it  instead of  class-local constant definition/usage
+5. Singleton fix in 2.0 will allow null check removal & easier instance call .So if you have  implementations as below examples, change accordingly.
+5.1 null check removal example 
+```csharp
+	private AccountManager accountManager;
+	if (accountManager != null)
+	{
+		accountManager.SignIn();                  ==>       HMSAccountManager.Instance.SignIn();
+	}
+	else
+	{
+		Debug.LogError("Account Manager is null");
+	}
+```
+5.2 Instance call example 
+```csharp
+	private IapManager iapManager;
+	iapManager = IapManager.GetInstance();    ==>       HMSIAPManager.Instance.CheckIapAvailability();
+	iapManager.CheckIapAvailability();
+```		
+6.  In 2.0 , IAP Constants Class added so use it  instead of  class-local constant definition/usage
+```csharp
+	private string removeAds = "com.samet.reffapp.huawei.removeads";  
+	BuyProduct(removeAds);									         ==> BuyProduct(HMSIAPConstants.comsametreffapphuaweiremoveads);
+```
 
-private string removeAds = "com.samet.reffapp.huawei.removeads";  
-BuyProduct(removeAds);									          ==> BuyProduct(HMSIAPConstants.comsametreffapphuaweiremoveads);
+7. Remove all ***.aar*** & ***.aar.meta***, ***.jar***, manifest files of previous HMS Unity Plugin (1.X) versions on the path: Assets\Plugins\Android
 
-Step 7. Remove all ***.aar*** & ***.aar.meta***, ***.jar***, manifest files of previous HMS Unity Plugin (1.X) versions on the path: Assets\Plugins\Android
+8. Remove unnecessary ***agconnect-services.json*** files . Only Assets\StreamingAssets  path should include ***agconnect-services.json*** file
 
-Step 8. Remove unnecessary agconnect-services.json files . Only Assets\StreamingAssets  path should include "agconnect-services.json" file
-(ex: \Assets\Plugins\Android\assets  or \Assets\Huawei path can include such not necessary-anymore agconnect-json file)
+( \Assets\Plugins\Android\assets  or \Assets\Huawei paths can include such not necessary-anymore agconnect-json files)
 
-Step 9.  Remove 1.0 version prefabs of the hms-based managers existing in your scenes if you use any in your project
+9.  Remove 1.0 version prefabs of the hms-based managers existing in your scenes if you use any in your project
 
-Step 10. Configure your unity editor build settings for HMS build as follow :
+10. Configure your unity editor build settings for HMS build as follow :
            In Unity Editor File-> Build Settings -> Player Settings... -> Other Settings 
-		Set  "Scripting Define Symbols" as HMS_BUILD (default is GMS_BUILD)
+		Set  "Scripting Define Symbols" as ***HMS_BUILD*** (default is GMS_BUILD)
 		
 _____
 
