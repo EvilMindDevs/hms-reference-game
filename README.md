@@ -437,11 +437,7 @@ Official Documentation on Analytics Kit: [ Documentation](https://developer.huaw
 	Step 10. Configure your unity editor build settings for HMS build as follow :
             In Unity Editor File-> Build Settings -> Player Settings... -> Other Settings 
 			Set  "Scripting Define Symbols" as HMS_BUILD (default is GMS_BUILD)
-______
-
-## License
-
-This project is licensed under the MIT License
+			
 ______
 
 ###  Troubleshoot
@@ -451,9 +447,6 @@ ______
 	2. Backup  existing meta files of unity files that you have a problem on 
 	3. Delete existing (.meta) metafile of it and try re-building your unity project
 ______
-
-
-
 ## License
 
 This project is licensed under the MIT License
