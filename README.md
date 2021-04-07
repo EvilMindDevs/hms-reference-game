@@ -204,7 +204,8 @@ ____
 #### 4 - Specify your project building settings on Unity Editor .
 Configure your unity editor build settings for GMS build as follow :
 
-In Unity Editor,  File-> Build Settings -> Player Settings... -> Other Settings 
+In Unity Editor,  File -> Build Settings -> Player Settings... -> Other Settings 
+
 Set "Scripting Define Symbols" as ***GMS_BUILD*** (default value: GMS_BUILD)
 
 #### 5 - Connect your game with any HMS Kit
@@ -445,8 +446,9 @@ Follow these steps to upgrade your existing HMS Unity Plugin Integrated game pro
 9.  Remove 1.0 version prefabs of the hms-based managers existing in your scenes if you use any in your project
 
 10. Configure your unity editor build settings for HMS build as follow :
-           In Unity Editor File-> Build Settings -> Player Settings... -> Other Settings 
-		Set  "Scripting Define Symbols" as ***HMS_BUILD*** (default is GMS_BUILD)
+           In Unity Editor File -> Build Settings -> Player Settings... -> Other Settings  
+		   
+		    Set  "Scripting Define Symbols" as ***HMS_BUILD*** (default is GMS_BUILD)
 		
 _____
 
@@ -454,9 +456,13 @@ _____
  ***unamgious unity file change issue fix suggestion***
  
 If you change content of codes or files related with unity project and face an unambigious issue:
+
 	1. Save your existing unity project 
+	
 	2. Backup  existing meta files of unity files that you have a problem on 
+	
 	3. Delete existing (.meta) metafile of it and try re-building your unity project
+	
 ______
 ## License
 
