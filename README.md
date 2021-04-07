@@ -110,6 +110,7 @@ Integrated HMS kits in this project:
 
 ### Requirements
 Android SDK min 21
+
 Net 4.x
 
 ### Important
@@ -203,7 +204,7 @@ ____
 #### 4 - Specify your project building settings on Unity Editor .
 Configure your unity editor build settings for GMS build as follow :
 
-In Unity Editor File-> Build Settings -> Player Settings... -> Other Settings 
+In Unity Editor,  File-> Build Settings -> Player Settings... -> Other Settings 
 Set "Scripting Define Symbols" as ***GMS_BUILD*** (default value: GMS_BUILD)
 
 #### 5 - Connect your game with any HMS Kit
@@ -216,14 +217,14 @@ It will automaticly create the GameObject for you and it has DontDestroyOnLoad i
 
 Now you need your game to call the Kit Managers from your game. See below for further instructions.
     
-##### Account Kit (Sign In)
+#### Account Kit (Sign In)
 Call login method in order to open the login dialog. Be sure to have AccountKit enabled in Huawei > Kit Settings.
 
 ```csharp
 HMSAccountManager.Instance.SignIn();
 ```
 
-##### Analytics kit
+#### Analytics kit
  
 1. Enable Analtics kit from AGC
 2. Update ...Assets\StreamingAssets\agconnect-services.json file
@@ -234,7 +235,7 @@ HMSAccountManager.Instance.SignIn();
 HMSAnalyticsManager.Instance.SendEventWithBundle(eventId, key, value);
   ```
   
-##### In App Purchases
+#### In App Purchases
 Register your products via custom editor under Huawei > Kit Settings > IAP tab.
 ![image](https://user-images.githubusercontent.com/6827857/113579431-f8184680-962c-11eb-9bfd-13ec69402536.png)
 Write your product identifier that is in AGC and select product type.
@@ -287,7 +288,7 @@ You can also use "Create Constant Classes" button to create a class called HMSIA
 HMSIAPManager.Instance.BuyProduct(HMSIAPConstants.testProduct);
 ```
 
-##### Ads kit
+#### Ads kit
 There is a custom editor in Huawei > Kit Settings > Ads tab.
 ![image](https://user-images.githubusercontent.com/6827857/113583224-0ae14a00-9632-11eb-83c3-a45ab2699e4f.png)
 
@@ -310,7 +311,7 @@ Then you can call certain functions such as
     }
 ```
 
-##### Game kit
+#### Game kit
 There is a custom editor in Huawei > Kit Settings > Game Service tab.
 ![image](https://user-images.githubusercontent.com/6827857/113587013-e6d43780-9636-11eb-8621-8fc4d0fdb433.png)
 
@@ -375,7 +376,7 @@ Official Documentation on Analytics Kit: [ Documentation](https://developer.huaw
 
 Official Documentation on Analytics Kit: [ Documentation](https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agc-clouddb-introduction)
 
-## Upgrade To HMS Unity Plugin VERSION 2.0 Guide
+## Upgrade To HMS Unity Plugin VERSİON 2.0 Guide
 For users who already integrated HMS Unity Plugin Project's previous 1.X versions to their project and want to upgrade to HMS Unity Plugin version 2.0
 
 	Here is some highlights about new plugin 2.0, 
@@ -416,7 +417,7 @@ Follow these steps to upgrade your existing HMS Unity Plugin Integrated game pro
 	private AccountManager accountManager;
 	if (accountManager != null)
 	{
-		accountManager.SignIn();                  ==>       HMSAccountManager.Instance.SignIn();
+		accountManager.SignIn();            ==>       HMSAccountManager.Instance.SignIn();
 	}
 	else
 	{
@@ -426,13 +427,13 @@ Follow these steps to upgrade your existing HMS Unity Plugin Integrated game pro
 5.2 Instance call example 
 ```csharp
 	private IapManager iapManager;
-	iapManager = IapManager.GetInstance();    ==>       HMSIAPManager.Instance.CheckIapAvailability();
+	iapManager = IapManager.GetInstance();   ==>       HMSIAPManager.Instance.CheckIapAvailability();
 	iapManager.CheckIapAvailability();
 ```		
 6.  In 2.0 , IAP Constants Class added so use it  instead of  class-local constant definition/usage
 ```csharp
 	private string removeAds = "com.samet.reffapp.huawei.removeads";  
-	BuyProduct(removeAds);									         ==> BuyProduct(HMSIAPConstants.comsametreffapphuaweiremoveads);
+	BuyProduct(removeAds);					==> BuyProduct(HMSIAPConstants.comsametreffapphuaweiremoveads);
 ```
 
 7. Remove all ***.aar*** & ***.aar.meta***, ***.jar***, manifest files of previous HMS Unity Plugin (1.X) versions on the path: Assets\Plugins\Android
