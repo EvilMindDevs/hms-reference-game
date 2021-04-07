@@ -7,9 +7,9 @@ Hyper-casual / agility game
 
 <img src="https://github.com/EvilMindDevs/hms-reference-game/blob/PluginV2/RefGame/testss%20(1).jpg" width="248">
 
-## 1. GMS Integration Guideline
+##  GMS Integration Guideline
 
-### 1.1 Requirements
+### 1 Requirements
 Current prerequisites on above link for unity project on firebase:
 
 https://firebase.google.com/docs/unity/setup#prerequisites
@@ -19,7 +19,7 @@ https://firebase.google.com/docs/unity/setup#prerequisites
 **Note:** Since this project also include hms , minimum prerequistes should be considered
 for both GMS and HMS(section 2.1) together
 
-### 1.2 Integrated GMS kits & services list :
+### 2 Integrated GMS kits & services list :
 * Google Sign-In Unity Plugin
 * Firebase Cloud Messaging
 * Google Admob
@@ -27,7 +27,7 @@ for both GMS and HMS(section 2.1) together
 * Firebase Crashlytics
 * Firebase Remoteconfig
 
-### 1.3 GMS Kit integration resources used :
+### 3 GMS Kit integration resources used :
 
 *  Helper links for creating and configuring unity based firebase project:
 
@@ -82,10 +82,21 @@ for both GMS and HMS(section 2.1) together
    https://firebase.google.com/docs/remote-config/use-config-unity
 	
 
-## 2. HMS Integration Guideline
-# Huawei Mobile Services Plugin
+## HMS Integration Guideline
 
-The HMS Unity plugin helps you integrate all the power of Huawei Mobile Services in your Unity game:
+**Note:** There are separate  "HMS Integration Installation"  and "Upgrade To HMS Unity Plugin VERSION 2.0" guide exist for this project.
+		  "Upgrade To HMS Unity Plugin VERSION 2.0" guide should be used by who already integrated HMS Unity Plugin version 1.X on their 
+		  project and want to use 2.0 version by upgrading it .
+
+
+### HMS Integration Installation Guide
+	For first time integration users
+
+## Huawei Mobile Services Plugin
+
+The HMS Unity plugin helps you integrate all the power of Huawei Mobile Services in your Unity game
+
+Integrated HMS kits in this project:
 
 * Huawei Account Kit
 * In App purchases: Consumable, non consumables and Subscriptions.
@@ -103,8 +114,8 @@ Net 4.x
 
 ## Important
 This plugin supports:
-* Unity version 2019, 2020 - Developed in Master Branch
-* Unity version 2018 - Developed in 2018 Branch
+* Unity version 2019, 2020 - Developed in 2.0 git branch
+
 
 **Make sure to download the corresponding unity package for the Unity version you are using from the release section**
 
@@ -112,7 +123,7 @@ This plugin supports:
 Please check our [wiki page](https://github.com/EvilMindDevs/hms-unity-plugin/wiki/Troubleshooting)
 
 ## Status
-This is an ongoing project, currently WIP. Feel free to contact us if you'd like to collaborate and use Github issues for any problems you might encounter. We'd try to answer in no more than a working day.
+This is an ongoing project, currently WIP. Feel free to contact us if you'd like to collaborate and use Github issues for any problems you might encounter.
 
 ### Expected soon features
 * Native Ads Integration
@@ -175,7 +186,7 @@ ____
 
 To import the plugin:
 
-1. Download the [.unitypackage](https://github.com/EvilMindDevs/hms-unity-plugin/releases)
+1. Download the latest [.unitypackage](https://github.com/EvilMindDevs/hms-unity-plugin/releases)
 2. Open your game in Unity
 3. Choose Assets> Import Package> Custom
 ![Import Package](http://evil-mind.com/huawei/images/importCustomPackage.png "Import package")
@@ -189,8 +200,12 @@ ____
 In order for the plugin to work, some kits are in need of agconnect-json file. Please download your latest config file from AGC and import into Assets/StreamingAssets folder.
 ![image](https://user-images.githubusercontent.com/6827857/113585485-f488bd80-9634-11eb-8b1e-6d0b5e06ecf0.png)
 ____
+### 4 - Specify your project building settings on Unity Editor .
+	Configure your unity editor build settings for GMS build as follow :
+            In Unity Editor File-> Build Settings -> Player Settings... -> Other Settings 
+			Set "Scripting Define Symbols" as GMS_BUILD (default value: GMS_BUILD)
 
-### 4 - Connect your game with any HMS Kit
+### 5 - Connect your game with any HMS Kit
 
 In order for the plugin to work, you need to select the needed kits Huawei > Kit Settings.
 
@@ -358,11 +373,71 @@ Official Documentation on Analytics Kit: [ Documentation](https://developer.huaw
 ### Cloud DB
 
 Official Documentation on Analytics Kit: [ Documentation](https://developer.huawei.com/consumer/en/doc/development/AppGallery-connect-Guides/agc-clouddb-introduction)
-______
 
-## License
+## Upgrade To HMS Unity Plugin VERSION 2.0 Guide
+	For users who already integrated HMS Unity Plugin Project's previous 1.X versions to their project and want to upgrade to HMS Unity Plugin version 2.0
+	
+		Here is some highlights about new plugin2.0, 
 
-This project is licensed under the MIT License
+		•	Reduce integration time and risk of integration issues
+		•	Minimum line of codes < almost codeless development experience> 
+		•	Added new custom Unity editors for easy implementation of kits ( that'll help junior developers to integrate Huawei Services into projects with few clicks ) 
+		•	Optimize and support latest HMS kit version
+		•	Gradle build for smooth procedure
+		•	Remove library files inside unity project
+		•   InAppPurchaseData elements can be separately maintained(instead of as a whole in 1.X versions)
+
+	Follow these steps to upgrade your existing HMS Unity Plugin Integrated game project to 2.0 version:
+	Step 1. Backup your existing project
+	
+	Step 2. Delete Huawei Directory in your project
+	
+	Step 3. Download HMS Unity Plugin version 2 [.unitypackage](https://github.com/EvilMindDevs/hms-unity-plugin/releases/tag/2.0)
+	
+	Step 4. Change hms unity plugin manager class names(from 1.0 version) that you already use in your project with their HMS-prefixed counterparts exist in 2.0 version as follow
+	(Reason:Manager Class names changed to more HMS specific ones on 2.0 and singleton fix included)
+		achievementsManager  --> HMSAchievementsManager
+		analyticsManager     --> HMSAnalyticsManager
+		leaderboardManager   --> HMSLeaderboardManager
+		interstitalAdManager --> HMSAdsKitManager
+		rewardAdManager      --> HMSAdsKitManager
+		AccountManager       --> HMSAccountManager
+		AuthHuaweiId         --> AuthAccount
+		iapManager           --> HMSIAPManager
+		...
+		
+    Step 5. Singleton fix in 2.0 will allow null check removal & easier instance call .So if you have  implementations as below examples, change accordingly.
+		5.1 null check removal example 
+			private AccountManager accountManager;
+			if (accountManager != null)
+			{
+				accountManager.SignIn();                     ==>       HMSAccountManager.Instance.SignIn();
+			}
+			else
+			{
+				Debug.LogError("Account Manager is null");
+			}
+		5.2 Instance call example 
+				private IapManager iapManager;
+				iapManager = IapManager.GetInstance();       ==>       HMSIAPManager.Instance.CheckIapAvailability();
+				iapManager.CheckIapAvailability();
+				
+	Step 6.  In 2.0 , IAP Constants Class added so use it  instead of  class-local constant definition/usage
+	
+	private string removeAds = "com.samet.reffapp.huawei.removeads";  
+	BuyProduct(removeAds);									   			==>		BuyProduct(HMSIAPConstants.comsametreffapphuaweiremoveads);
+	
+	Step 7. Remove all .aar & .aar.meta, .jar, manifest files of previous HMS Unity Plugin (1.X) versions on the path: Assets\Plugins\Android
+	
+	Step 8. Remove unnecessary agconnect-services.json files . Only Assets\StreamingAssets  path should include "agconnect-services.json" file
+	(ex: \Assets\Plugins\Android\assets  or \Assets\Huawei path can include such not necessary-anymore agconnect-json file)
+	
+	Step 9.  Remove 1.0 version prefabs of the hms-based managers existing in your scenes if you use any in your project
+	
+	Step 10. Configure your unity editor build settings for HMS build as follow :
+            In Unity Editor File-> Build Settings -> Player Settings... -> Other Settings 
+			Set  "Scripting Define Symbols" as HMS_BUILD (default is GMS_BUILD)
+			
 ______
 
 ###  Troubleshoot
@@ -372,7 +447,6 @@ ______
 	2. Backup  existing meta files of unity files that you have a problem on 
 	3. Delete existing (.meta) metafile of it and try re-building your unity project
 ______
-
 ## License
 
 This project is licensed under the MIT License
