@@ -446,9 +446,10 @@ Follow these steps to upgrade your existing HMS Unity Plugin Integrated game pro
 9.  Remove 1.0 version prefabs of the hms-based managers existing in your scenes if you use any in your project
 
 10. Configure your unity editor build settings for HMS build as follow :
-           In Unity Editor File -> Build Settings -> Player Settings... -> Other Settings  
+
+In Unity Editor File -> Build Settings -> Player Settings... -> Other Settings  
 		   
-		    Set  "Scripting Define Symbols" as ***HMS_BUILD*** (default is GMS_BUILD)
+Set  "Scripting Define Symbols" as ***HMS_BUILD*** (default is GMS_BUILD)
 		
 _____
 
