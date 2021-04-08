@@ -9,6 +9,7 @@ using System.Xml.Linq;
 using System.Xml;
 using HmsPlugin;
 
+
 public class HMSRemoteConfigManager : HMSSingleton<HMSRemoteConfigManager>
 {
     string TAG = "HMSRemoteConfig Manager";

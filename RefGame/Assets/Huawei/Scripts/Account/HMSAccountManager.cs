@@ -61,10 +61,12 @@ namespace HmsPlugin
 
         public override void Awake()
         {
+#if HMS_BUILD
             base.Awake();
             Debug.Log("[HMS]: AWAKE AUTHSERVICE");
             authService = DefaultAuthService;
             //authServiceDrive = DefaultDriveAuthService;
+#endif
         }
 
         //Game Service authentication
@@ -134,7 +136,7 @@ namespace HmsPlugin
 
         public bool IsSignedIn()
         {
-          return HuaweiId != null;
+            return HuaweiId != null;
         }
     }
 }

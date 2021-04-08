@@ -18,8 +18,10 @@ namespace HmsPlugin
 
         public void Start()
         {
+ 
             Debug.Log("HMS GAMES: Game init");
             HuaweiMobileServicesUtil.SetApplication();
+ 
         }
 
         public void Init()
@@ -41,7 +43,7 @@ namespace HmsPlugin
             }).AddOnFailureListener((exception) =>
             {
                 Debug.Log("HMS GAMES: The app has not been authorized");
-                authService.StartSignIn(SignInSuccess,SignInFailure);
+                authService.StartSignIn(SignInSuccess, SignInFailure);
                 InitGameManagers();
             });
         }

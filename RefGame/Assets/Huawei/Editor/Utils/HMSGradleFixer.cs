@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor.Android;
 using UnityEngine;
+#if HMS_BUILD
 
 public class HMSGradleFixer : IPostGenerateGradleAndroidProject
 {
     public int callbackOrder => 1;
-
     public void OnPostGenerateGradleAndroidProject(string path)
     {
         string fileName = "agconnect-services.json";
@@ -17,4 +17,6 @@ public class HMSGradleFixer : IPostGenerateGradleAndroidProject
             File.Delete(destPath);
         File.Copy(filePath, destPath);
     }
+
 }
+#endif

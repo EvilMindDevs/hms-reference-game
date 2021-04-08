@@ -11,6 +11,7 @@ using UnityEngine;
 
 namespace HmsPlugin
 {
+    #if HMS_BUILD
     public class HMSGradleWorker : HMSEditorSingleton<HMSGradleWorker>, IPreprocessBuildWithReport, IPostprocessBuildWithReport
     {
         private Dictionary<string, string[]> gradleSettings;
@@ -55,7 +56,7 @@ namespace HmsPlugin
             {
                 file.WriteLine("apply plugin: 'com.android.library'\n**APPLY_PLUGINS**\n");
 
-                #region Dependencies
+#region Dependencies
                 file.Write("dependencies {\n\t");
                 file.Write("implementation fileTree(dir: 'libs', include: ['*.jar'])\n\t");
                 for (int i = 0; i < gradleConfigs.Length; i++)
@@ -63,9 +64,9 @@ namespace HmsPlugin
                     file.Write(AddDependency(gradleConfigs[i]));
                 }
                 file.Write("**DEPS**}\n\n");
-                #endregion
+#endregion
 
-                #region Android Settings
+#region Android Settings
                 file.Write("android {\n\t");
                 file.Write("compileSdkVersion **APIVERSION**\n\t");
                 file.Write("buildToolsVersion '**BUILDTOOLS**'\n\n\t");
@@ -84,7 +85,7 @@ namespace HmsPlugin
                 file.Write("abortOnError false\n\t}\n\n\t");
                 file.Write("aaptOptions {\n\t\t");
                 file.Write("ignoreAssetsPattern = \"!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~\"\n\t}**PACKAGING_OPTIONS**\n}");
-                #endregion
+#endregion
                 file.Write("**REPOSITORIES****SOURCE_BUILD_SETUP**\n");
                 file.Write("**EXTERNAL_SOURCES**");
             }
@@ -228,4 +229,5 @@ namespace HmsPlugin
             }
         }
     }
+#endif
 }

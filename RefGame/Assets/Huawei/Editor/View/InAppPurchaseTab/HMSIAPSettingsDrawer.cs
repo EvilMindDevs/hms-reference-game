@@ -27,7 +27,7 @@ namespace HmsPlugin
             _iapSettings = HMSIAPKitSettings.Instance.Settings;
             _productListSettings = HMSIAPProductListSettings.Instance.Settings;
             _productManipulator = new IAPProductManipulator(_productListSettings);
-            _initializeOnStartToggle = new Toggle.Toggle("Initialize On Start*", HMSIAPKitSettings.Instance.Settings.GetBool(HMSIAPKitSettings.InitializeOnStart), OnInitializeOnStartToggle).SetTooltip("Obtains product info in Start function.");
+            _initializeOnStartToggle = new Toggle.Toggle("Initialize On ", HMSIAPKitSettings.Instance.Settings.GetBool(HMSIAPKitSettings.InitializeOnStart), OnInitializeOnStartToggle).SetTooltip("Obtains product info in Start function.");
 
             _productManipulator.OnRefreshRequired += OnIAPProductChanged;
             OnIAPProductChanged();
