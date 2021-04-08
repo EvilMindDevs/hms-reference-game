@@ -187,6 +187,75 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &40919614
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3904005496639272650, guid: 521c3ec1c3e674f4f8578eda499fcab5,
+        type: 3}
+      propertyPath: m_Name
+      value: FirebaseCloudMessagingManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 521c3ec1c3e674f4f8578eda499fcab5, type: 3}
 --- !u!1 &103171948
 GameObject:
   m_ObjectHideFlags: 0
@@ -5880,7 +5949,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57f01236e9667354b9d44f7611d033c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFirebaseInitialized: 0
   ball: {fileID: 1787280956}
 --- !u!4 &1039206319
 Transform:
@@ -6166,21 +6234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1562ecee8963684d9e274b6746535cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  webClientId: 875790264116-9plfbf75iol0k58lfejiup3h9dclh641.apps.googleusercontent.com
-  dependencyStatus: 7
   fb_GUISkin: {fileID: 0}
-  displayName: 
-  email: 
-  password: 
-  phoneNumber: 
-  receivedCode: 
-  logText: 
-  signInAndFetchProfile: 0
-  fetchingToken: 0
   usePasswordInput: 0
-  controlsScrollViewVector: {x: 0, y: 0}
-  scrollViewVector: {x: 0, y: 0}
-  UIEnabled: 1
 --- !u!1 &1387764368
 GameObject:
   m_ObjectHideFlags: 0
@@ -11113,105 +11168,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50724f410901b3e4fae04f4a45cd7951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deltaTime: 0
   OnAdLoadedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_CallsDirty: 1
   OnAdFailedToLoadEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_CallsDirty: 1
   OnAdOpeningEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_CallsDirty: 1
   OnAdFailedToShowEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_CallsDirty: 1
   OnUserEarnedRewardEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_CallsDirty: 1
   OnAdClosedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_CallsDirty: 1
   OnAdLeavingApplicationEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_CallsDirty: 1
   showFpsMeter: 1
---- !u!1001 &1733790929
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 226774612738530652, guid: 521c3ec1c3e674f4f8578eda499fcab5,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3904005496639272650, guid: 521c3ec1c3e674f4f8578eda499fcab5,
-        type: 3}
-      propertyPath: m_Name
-      value: FirebaseCloudMessagingManager
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 521c3ec1c3e674f4f8578eda499fcab5, type: 3}
 --- !u!1 &1787280956
 GameObject:
   m_ObjectHideFlags: 0

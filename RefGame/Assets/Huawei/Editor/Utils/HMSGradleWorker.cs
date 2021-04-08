@@ -9,9 +9,10 @@ using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
+#if HMS_BUILD
 namespace HmsPlugin
 {
-    #if HMS_BUILD
+
     public class HMSGradleWorker : HMSEditorSingleton<HMSGradleWorker>, IPreprocessBuildWithReport, IPostprocessBuildWithReport
     {
         private Dictionary<string, string[]> gradleSettings;
@@ -21,6 +22,7 @@ namespace HmsPlugin
         {
             gradleSettings = new Dictionary<string, string[]>()
             {
+
                 { AccountToggleEditor.AccountKitEnabled, new string[]{ "com.huawei.hms:hwid:5.2.0.300" } },
                 { AdsToggleEditor.AdsKitEnabled, new string[]{ "com.huawei.hms:ads-lite:13.4.39.302", "com.huawei.hms:ads-consent:3.4.39.302", "com.huawei.hms:ads-identifier:3.4.39.302" } },
                 { AnalyticsToggleEditor.AnalyticsKitEnabled, new string[] { "com.huawei.hms:hianalytics:5.2.0.301" } },
@@ -31,6 +33,8 @@ namespace HmsPlugin
                 { RemoteConfigToggleEditor.RemoteConfigEnabled, new string[] { "com.huawei.agconnect:agconnect-remoteconfig:1.5.0.300" } },
                 { CloudDBToggleEditor.CloudDBEnabled, new string[] { "com.huawei.agconnect:agconnect-cloud-database:1.4.5.300" } },
                 { AuthToggleEditor.AuthEnabled, new string[] { "com.huawei.agconnect:agconnect-auth:1.4.2.301" } },
+
+
             };
         }
 
@@ -200,7 +204,18 @@ namespace HmsPlugin
 
         private string[] CoreGradles()
         {
+#if GMS_BUILD
+            return new string[] { "com.huawei.agconnect:agconnect-auth:1.4.2.301", "com.android.support:appcompat-v7:28.0.0", 
+                    "com.google.android.gms:play-services-auth:16+", "com.google.android.gms:play-services-base:17.5.0", "com.google.firebase:firebase-analytics:18.0.0",
+                "com.google.firebase:firebase-analytics-unity:7.0.1", "com.google.firebase:firebase-app-unity:7.0.1", "com.google.firebase:firebase-auth:20.0.0",
+              "com.google.firebase:firebase-auth-unity:7.0.1", "com.google.firebase:firebase-common:19.3.1", "com.google.firebase:firebase-config:20.0.0:13", 
+            "com.google.firebase:firebase-config-unity:7.0.1:20", "com.google.firebase:firebase-crashlytics:17.2.2", "com.google.firebase:firebase-crashlytics-unity:7.0.1",
+           "com.google.firebase:firebase-messaging:21.0.0", "com.google.firebase:firebase-messaging-unity:7.0.1", "com.google.signin:google-signin-support:1.0.4",
+         "com.google.android.gms:play-services-ads:19.5.0" };
+
+#elif HMS_BUILD
             return new string[] { "com.huawei.hms:base:5.2.0.300", "com.android.support:appcompat-v7:28.0.0", "com.huawei.agconnect:agconnect-core:1.4.1.300" };
+#endif
         }
 
         public void OnPreprocessBuild(BuildReport report)
@@ -229,5 +244,6 @@ namespace HmsPlugin
             }
         }
     }
-#endif
+
 }
+#endif
