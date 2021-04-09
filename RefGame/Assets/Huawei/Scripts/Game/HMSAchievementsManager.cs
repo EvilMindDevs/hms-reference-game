@@ -31,6 +31,7 @@ namespace HmsPlugin
 
         public void Start()
         {
+ 
             Debug.Log("HMS GAMES: Achievements init");
             if (HMSAccountManager.Instance.HuaweiId != null)
             {
@@ -40,6 +41,7 @@ namespace HmsPlugin
                     achievementsClient = Games.GetAchievementsClient();
                 }
             }
+ 
         }
 
         public void ShowAchievements()

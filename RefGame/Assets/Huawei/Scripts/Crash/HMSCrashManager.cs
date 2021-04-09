@@ -1,6 +1,5 @@
 ﻿using HuaweiMobileServices.Crash;
 using UnityEngine;
-
 public class HMSCrashManager : HMSSingleton<HMSCrashManager>
 {
     IAGConnectCrash agConnectCrash;

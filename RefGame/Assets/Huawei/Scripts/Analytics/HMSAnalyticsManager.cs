@@ -40,6 +40,6 @@ public class HMSAnalyticsManager : HMSSingleton<HMSAnalyticsManager>
 
     void Start()
     {
-        InitilizeAnalyticsInstane();
-    }
+         InitilizeAnalyticsInstane();
+     }
 }
