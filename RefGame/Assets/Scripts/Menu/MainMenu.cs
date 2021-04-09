@@ -42,6 +42,9 @@ public class MainMenu : SimpleMenu<MainMenu>
         huaweiButton.SetActive(false);
         signinGoogleButton.SetActive(!gmsaccountManager.IsSignedIn());
         groupButton.SetActive(gmsaccountManager.IsSignedIn());
+        //Achievement & Leaderboard buttons for GMS will be activated in future
+        groupButton.transform.GetChild(1).gameObject.SetActive(false);
+        groupButton.transform.GetChild(2).gameObject.SetActive(false);
 #endif
 #if HMS_BUILD
         signinGoogleButton.SetActive(false);
